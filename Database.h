@@ -39,6 +39,7 @@ public:
     Database(std::string db_host, std::string db_user, std::string db_password, std::string db_database, uint32_t threads);
     ~Database();
 
+    void EscapeString(std::string& str);
     void DirectExecuteQuery(std::string query, bool escape = false);
     void AsynExecuteQuery(std::string query, bool escape = false);
     DatabaseResult ResultQuery(std::string query, bool escape = false);

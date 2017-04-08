@@ -59,15 +59,18 @@ Database::~Database()
     _threadSet.clear();
 }
 
+void Database::EscapeString(std::string& str)
+{
+    char *to = new char[(strlen(str.c_str()) * 2) + 1];
+    mysql_real_escape_string(_connection, to, str.c_str(), (uint32_t)strlen(str.c_str()));
+    str = to;
+    delete[] to;
+}
+
 void Database::DirectExecuteQuery(std::string query, bool escape)
 {
     if (escape)
-    {
-        char *to = new char[(strlen(query.c_str()) * 2) + 1];
-        mysql_real_escape_string(_connection, to, query.c_str(), (uint32_t)strlen(query.c_str()));
-        query = to;
-        delete[] to;
-    }
+        EscapeString(query);
 
     if (mysql_query(_connection, query.c_str()))
         throw DatabaseException(mysql_error(_connection));
@@ -99,12 +102,7 @@ void Database::AsynExecuteQuery(std::string query, bool escape)
 DatabaseResult Database::ResultQuery(std::string query, bool escape)
 {
     if (escape)
-    {
-        char *to = new char[(strlen(query.c_str()) * 2) + 1];
-        mysql_real_escape_string(_connection, to, query.c_str(), (uint32_t)strlen(query.c_str()));
-        query = to;
-        delete[] to;
-    }
+        EscapeString(query);
 
     if (mysql_query(_connection, query.c_str()))
         throw DatabaseException(mysql_error(_connection));

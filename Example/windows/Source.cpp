@@ -1,3 +1,22 @@
+/*
+ * EMySQL - Light and simple MySQL wrapper, with multithread queries support.
+ * Copyright (C) 2017 Blackhack
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 2 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
 #include <iostream>
 #include <Database.h>
 
@@ -5,7 +24,7 @@ int main()
 {
     try
     {
-        Database db("192.168.2.145", "root", "lula2013", "mysql", 1);
+        Database db("localhost", "user", "password", "mysql", 1);
 
         // This functions should be used only for no returning queries like insert, update, etc...
         // show tables will return but in this case is used only for demostration
